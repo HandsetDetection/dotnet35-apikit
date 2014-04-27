@@ -97,7 +97,7 @@ namespace HD3 {
     /// Main class for all handset detection API calls
     /// </summary>
     public class HD3 {
-        int maxJsonLength = 20000000;
+        int maxJsonLength = 40000000;
         int read_timeout = 10;
         int connect_timeout = 10;
         string username = "";
