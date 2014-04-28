@@ -127,13 +127,23 @@
     <None Include="HD3web\.DS_Store" />
     <None Include="HD3web\Web.config" />
     <None Include="HDKey.snk" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="packages.config" />
+    <None Include="packages\repositories.config" />
+    <None Include="packages\UnitTestUtilities.1.0.1\UnitTestUtilities.1.0.1.nupkg" />
+    <None Include="packages\UnitTestUtilities.1.0.1\UnitTestUtilities.1.0.1.nuspec" />
     <None Include="SnKey.snk" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\HD3.dll" />
+    <Content Include="bin\Debug\HD3.pdb" />
+    <Content Include="bin\Debug\nunit.framework.dll" />
+    <Content Include="bin\Debug\nunit.framework.xml" />
+    <Content Include="bin\Release\HD3.xml" />
     <Content Include="HD3web\bin\App_Web_13iemrvx.dll" />
     <Content Include="HD3web\bin\HD3.dll" />
     <Content Include="HD3web\bin\HD3.pdb" />
@@ -147,6 +157,17 @@
     <Content Include="HD3web\Tests.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="obj\Debug\HD3.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\HD3.dll" />
+    <Content Include="obj\Debug\HD3.pdb" />
+    <Content Include="obj\Release\HD3.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\HD3.dll" />
+    <Content Include="obj\Release\HD3.pdb" />
+    <Content Include="packages\UnitTestUtilities.1.0.1\lib\UnitTestUtilities.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="obj\Release\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
