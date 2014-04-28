@@ -1,3 +1,5 @@
+app.config
+Program.cs
 
 *.opensdf
 *.sdf
