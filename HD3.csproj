@@ -54,6 +54,7 @@
     <DocumentationFile>bin\Release\HD3.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -64,10 +65,31 @@
       <HintPath>C:\Documents and Settings\BhiM\My Documents\Downloads\System.Web.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="UnitTestUtilities">
+      <HintPath>packages\UnitTestUtilities.1.0.1\lib\UnitTestUtilities.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HD3.cs" />
+    <Compile Include="HD3web\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HD3web\Devices.aspx.cs">
+      <DependentUpon>Devices.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HD3web\Sites.aspx.cs">
+      <DependentUpon>Sites.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HD3web\Tests.aspx.cs">
+      <DependentUpon>Tests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\HD3Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -97,8 +119,29 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="HD3web\.DS_Store" />
+    <None Include="HD3web\Web.config" />
     <None Include="HDKey.snk" />
+    <None Include="packages.config" />
     <None Include="SnKey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HD3web\bin\App_Web_13iemrvx.dll" />
+    <Content Include="HD3web\bin\HD3.dll" />
+    <Content Include="HD3web\bin\HD3.pdb" />
+    <Content Include="HD3web\bin\HD3.xml" />
+    <Content Include="HD3web\bin\Microsoft.ServiceModel.Web.dll" />
+    <Content Include="HD3web\Default.aspx" />
+    <Content Include="HD3web\Devices.aspx" />
+    <Content Include="HD3web\mobile.txt" />
+    <Content Include="HD3web\normal.txt" />
+    <Content Include="HD3web\Sites.aspx" />
+    <Content Include="HD3web\Tests.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

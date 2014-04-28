@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>UnitTestUtilities</id>
+    <version>1.0.1</version>
+    <authors>Gísli Konráð Björnsson</authors>
+    <owners>Gísli Konráð Björnsson</owners>
+    <projectUrl>https://github.com/gislikonrad/UnitTestUtilities/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Some simple utilities for unit testing in .Net</description>
+    <tags>unit test testing unittesting</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="Microsoft.VisualStudio.QualityTools.UnitTestFramework" targetFramework=".NETFramework4.0" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

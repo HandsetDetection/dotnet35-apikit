@@ -58,7 +58,7 @@ namespace HD3 {
             public string Content;
         }
 
-        private int maxJsonLength = 20000000;
+        private int maxJsonLength = 40000000;
         string prefix = "hd32-";
         Cache myCache;
 
