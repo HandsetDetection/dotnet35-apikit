@@ -194,6 +194,12 @@ namespace HD3 {
             AddKey("request_uri", request.Url.ToString());
         }
 
+        /// <summary>
+        /// Default empty constructor
+        /// </summary>
+        public HD3() {
+        }
+
         /// <summary>Sets additional http headers for detection request, will override default headers.</summary>
         /// <param name="key"></param>
         /// <param name="val"></param>
