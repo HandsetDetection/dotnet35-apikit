@@ -6,7 +6,9 @@ Handset Detection is a service that lets you Detect Mobile Browsers. Our Databas
 
 
 Sources are in HD3lib.
+
 Binaries are in HD3Web/obj/Release/HD3.dll - Grab the dll from there and install where appropriate.
+
 Examples are in HD3web/*.aspx
 
 You can unzip and install on IIS as an application.
