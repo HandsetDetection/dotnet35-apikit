@@ -2,9 +2,9 @@
 
 Handset Detection is a service that lets you Detect Mobile Browsers. Our Database has over 50,000 handsets and growig at 60 to 80 new handsets per day. This is particularly useful if you want to target the ever growing number mobile users. 
 
-## This is an API Kit for HandsetDetection's API v3.
+## This is an API Kit for HandsetDetection's API v3.5
 
-## .NET v3.5
+## Framework .NET v3.5
 
 
 Sources are in HD3lib.
