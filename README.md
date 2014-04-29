@@ -4,6 +4,8 @@ Handset Detection is a service that lets you Detect Mobile Browsers. Our Databas
 
 ## This is an API Kit for HandsetDetection's API v3.
 
+## .NET v3.5
+
 
 Sources are in HD3lib.
 
