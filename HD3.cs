@@ -879,8 +879,8 @@ namespace HD3 {
                 return obj;
             }
 
-            // Its in neither - so populate both.
-            this._setCacheTrees();
+            // Its in neither - so populate both.            
+            this._setCachecArchives();
 
             // If it doesnt exist after immediate refresh then something is wrong.
 		    if (! this.tree.ContainsKey(treetag))
@@ -893,80 +893,38 @@ namespace HD3 {
 	    }
 
         #endregion
-
-        public bool siteFetchAll() {
-            bool status = false;
-            status = this.siteFetchSpecs();
-            if (!status)
-                return false;
-            status = this.siteFetchTrees();
-            if (!status)
-                return false;
-            return true;
-        }
-
-        public bool siteFetchTrees() {
+      
+        public bool siteFetchArchive()
+        {
             resetLog();
-            bool status = this.Remote("/site/fetchtrees/" + this.site_id + ".json", null);
+            bool status = this.Remote("/site/fetcharchive/" + this.site_id + ".json", null);
             if (!status)
                 return false;
-            try {
-                if (! this.reply.ContainsKey("status") || (int)this.reply["status"] != 0) {
-                    this.setError("siteFetchSpecs API call failed: " + this.reply["message"].ToString());
-                    return false;
-                }
-                // Write rawreply to file hd3trees.json file.
-                _localPutTrees();
-            } catch (Exception ex) {
-                this.setError("Exception : " + ex.Message + " " + ex.StackTrace);
-                return false;
-            }
-            return _setCacheTrees();
-        }
 
-        private bool _setCacheTrees() {
-            Dictionary<string, object> data = _localGetTrees();
-            if (data == null || ! data.ContainsKey("trees")) {
-                this.reply = new Dictionary<string, object>();
-                this.reply["status"] = 299;
-                this.reply["message"] = "Unable to open specs file hd3trees.json";
-                this.setError("Error : 299, Message : _setCacheTrees cannot open hd3trees.json. Is it there ? Is it world readable ?");
-                this.setRawReply();
-                return false;
-            }
-            foreach (KeyValuePair<string, object> branch in (IEnumerable)data["trees"])
+            try
             {
-                this.tree[branch.Key] = branch.Value as Dictionary<string, object>;
-                // Write to memory cache
-                myCache.write(branch.Key, (Dictionary<string, object>) this.tree[branch.Key]);
-            }
-            return true;
-        }
-
-        public bool siteFetchSpecs() {
-            resetLog();
-            bool status = this.Remote("/site/fetchspecs/" + this.site_id + ".json", null);
-            if (!status)
-                return false;
-
-            try {
-                if (!this.reply.ContainsKey("status") || (int)this.reply["status"] != 0) {
-                    this.setError("siteFetchSpecs API call failed: " + this.reply["message"].ToString());
+                if (!this.reply.ContainsKey("status") || (int)this.reply["status"] != 0)
+                {
+                    this.setError("siteFetchArchive API call failed: " + this.reply["message"].ToString());
                     return false;
                 }
                 // Write rawreply to file hd3specs.json file.
                 _localPutSpecs();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 this.setError("Exception : " + ex.Message + " " + ex.StackTrace);
                 return false;
             }
-            return _setCacheSpecs();
+            return _setCachecArchives();
         }
 
-        private bool _setCacheSpecs() {
+        private bool _setCachecArchives()
+        {
             Dictionary<string, object> data = _localGetSpecs();
 
-            if (data == null) {
+            if (data == null)
+            {
                 this.reply = new Dictionary<string, object>();
                 this.reply["status"] = 299;
                 this.reply["message"] = "Unable to open specs file hd3specs.json";
@@ -978,11 +936,12 @@ namespace HD3 {
             foreach (Dictionary<string, object> device in (IEnumerable)data["devices"])
             {
                 string device_id = ((IDictionary)device["Device"])["_id"].ToString();
-                string key = "device"+device_id;
-                if (device != null && device["Device"] != null && ((IDictionary)device["Device"])["hd_specs"] != null && key != null) {
+                string key = "device" + device_id;
+                if (device != null && device["Device"] != null && ((IDictionary)device["Device"])["hd_specs"] != null && key != null)
+                {
                     this.specs[key] = ((IDictionary)device["Device"])["hd_specs"];
                     // Save to Application Cache
-                    myCache.write(key, (Dictionary<string, object>) this.specs[key]);
+                    myCache.write(key, (Dictionary<string, object>)this.specs[key]);
                 }
             }
             // Cache Extras
@@ -990,14 +949,16 @@ namespace HD3 {
             {
                 string extra_id = ((IDictionary)extra["Extra"])["_id"].ToString();
                 string key = "extra" + extra_id;
-                if (extra["Extra"] != null && ((IDictionary)extra["Extra"])["hd_specs"] != null) {
+                if (extra["Extra"] != null && ((IDictionary)extra["Extra"])["hd_specs"] != null)
+                {
                     this.specs[key] = ((IDictionary)extra["Extra"])["hd_specs"] as Dictionary<string, object>;
                     // Save to Applications Cache
-                    myCache.write(key, (Dictionary<string, object>) this.specs[key]);
+                    myCache.write(key, (Dictionary<string, object>)this.specs[key]);
                 }
-			}	
+            }
             return true;
         }
+       
 
         private Dictionary<string, object> _getCacheSpecs(int id, string type)
         {
@@ -1023,8 +984,8 @@ namespace HD3 {
             // re-cache & re-read local.
 #if HD3_DEBUG
             this._log(key + " not found - rebuilding");
-#endif
-            this._setCacheSpecs();
+#endif            
+            this._setCachecArchives();
             if (this.specs.ContainsKey(key)) {
 #if HD3_DEBUG
                 this._log(key + " found after rebuilding");
