@@ -50,7 +50,13 @@ using System.Web.Script.Serialization;
 
 namespace HD3 {
 
+    ///<Summary>
+    /// The HD3Cache class
+    ///</Summary>
     public class HD3Cache {
+        ///<Summary>
+        /// The CacheEntry class
+        ///</Summary>
         class CacheEntry
         {
             public string Key;
@@ -62,10 +68,18 @@ namespace HD3 {
         string prefix = "hd32-";
         Cache myCache;
 
+        ///<Summary>
+        /// The HD3Cache class constructor
+        ///</Summary>
         public HD3Cache() {
             this.myCache = System.Web.HttpContext.Current.Cache;
         }
 
+        /// <summary>
+        /// Write new object to dictionary
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public void write(string key, Dictionary<string, object> value) {
             var s = this.prefix + key;
             if (value != null && key != "" && this.myCache[s] == null) {
@@ -76,6 +90,11 @@ namespace HD3 {
             }
         }
 
+        /// <summary>
+        /// Read object from dictionary
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Dictionary<string, object> read(string key) {
             try {
                 var s = this.prefix + key;
@@ -140,6 +159,9 @@ namespace HD3 {
 #endif
         }
 
+        /// <summary>
+        /// Return replay
+        /// </summary>
         private void setRawReply() {
             var jss = new JavaScriptSerializer();
             jss.MaxJsonLength = this.maxJsonLength;
@@ -216,11 +238,28 @@ namespace HD3 {
             this.m_detectRequest.Add(key, value);
         }
 
+        /// <summary>
+        /// Reset logger
+        /// </summary>
         public void resetLog() { this.log = ""; }
+
+        /// <summary>
+        /// Create a log
+        /// </summary>
+        /// <param name="msg"></param>
         private void _log(string msg) { 
             this.log += DateTime.Now.ToString("HH:mm:ss.ffffff") + " " + msg + "<br/>\n"; 
         }
+
+        /// <summary>
+        /// Return the log
+        /// </summary>
+        /// <returns></returns>
         public string getLog() { return this.log; }
+
+        /// <summary>
+        /// Clean object
+        /// </summary>
         public void cleanUp() { this.rawreply = ""; this.reply = new Dictionary<string, object>(); }
         #endregion
 
@@ -269,6 +308,13 @@ namespace HD3 {
             }
         }
 
+        /// <summary>
+        /// Post 
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private bool post(string host, Uri url, string data) {
             try {
                 IPAddress[] ipv4Addresses = Array.FindAll(Dns.GetHostEntry(this.api_server).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
@@ -354,6 +400,10 @@ namespace HD3 {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private bool _localDeviceVendors() {
             Dictionary<string, object> data = _localGetSpecs();
             if (data == null)
@@ -393,6 +443,11 @@ namespace HD3 {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vendor"></param>
+        /// <returns></returns>
         private bool _localDeviceModels(string vendor) {
             Dictionary<string, object> data = _localGetSpecs();
             if (data == null)
@@ -443,6 +498,12 @@ namespace HD3 {
             }
         }
 
+        /// <summary>
+        /// Provides information on a handset given the vendor and model.
+        /// </summary>
+        /// <param name="vendor">vendor</param>
+        /// <param name="model">model</param>
+        /// <returns>true if successful, false otherwise</returns>
         private bool _localDeviceView(string vendor, string model) {
             Dictionary<string, object> data = _localGetSpecs();
             if (data == null)
@@ -488,6 +549,13 @@ namespace HD3 {
             }
         }
 
+
+        /// <summary>
+        /// Provides information on a what device given the key and value.
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="value">value</param>
+        /// <returns></returns>
         private bool _localDeviceWhatHas(string key, string value) {
             Dictionary<string, object> data = this._localGetSpecs();
             if (data == null)
@@ -534,11 +602,21 @@ namespace HD3 {
             return true;
         }
 
+
+        /// <summary>
+        /// site detect
+        /// </summary>
+        /// <returns>return site detect specs</returns>
         public bool siteDetect()
         {
             return siteDetect("hd_specs");
         }
 
+        /// <summary>
+        /// site detect
+        /// </summary>
+        /// <param name="options">options</param>
+        /// <returns>return true if site detect specs</returns>
         public bool siteDetect(string options) {
             resetLog();
 
@@ -577,6 +655,11 @@ namespace HD3 {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="headers"></param>
+        /// <returns></returns>
         private bool _localSiteDetect(Dictionary<string, string> headers) {
             Dictionary<string, object> device = null;
             Dictionary<string, object> platform = null;
@@ -649,6 +732,11 @@ namespace HD3 {
 		    return false;
 	    }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="headers"></param>
+        /// <returns></returns>
         private int _getDevice(Dictionary<string, string> headers) {
             int id;
 		    // Remember the agent for generic matching later.
@@ -713,6 +801,13 @@ namespace HD3 {
             return 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="header"></param>
+        /// <param name="value"></param>
+        /// <param name="generic"></param>
+        /// <returns></returns>
         private int _matchDevice(string header, string value, bool generic) {
 		    // Strip unwanted chars from lower case version of value
             StringBuilder b = new StringBuilder(value.ToLower());
@@ -778,6 +873,13 @@ namespace HD3 {
             return 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="header"></param>
+        /// <param name="newvalue"></param>
+        /// <param name="treetag"></param>
+        /// <returns></returns>
         private int _match(string header, string newvalue, string treetag) {
 		
 		    int f = 0,r = 0;		
@@ -859,6 +961,11 @@ namespace HD3 {
             return 0;
 	    }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="treetag"></param>
+        /// <returns></returns>
         private Dictionary<string, object> _getBranch(string treetag)
         {
 		    // See if its in the class
@@ -894,6 +1001,10 @@ namespace HD3 {
 
         #endregion
       
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool siteFetchArchive()
         {
             resetLog();
@@ -919,6 +1030,10 @@ namespace HD3 {
             return _setCachecArchives();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private bool _setCachecArchives()
         {
             Dictionary<string, object> data = _localGetSpecs();
@@ -959,7 +1074,12 @@ namespace HD3 {
             return true;
         }
        
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private Dictionary<string, object> _getCacheSpecs(int id, string type)
         {
             // Read local first
@@ -998,6 +1118,10 @@ namespace HD3 {
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private Dictionary<string, object> _localGetSpecs()
         {
             var jss = new JavaScriptSerializer();
@@ -1013,6 +1137,10 @@ namespace HD3 {
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private Dictionary<string, object> _localGetTrees()
         {
             var jss = new JavaScriptSerializer();
@@ -1028,6 +1156,10 @@ namespace HD3 {
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private bool _localPutSpecs() {
             try {
                 System.IO.File.WriteAllText(Request.PhysicalApplicationPath + "\\hd3specs.json", this.rawreply.ToString());
@@ -1038,6 +1170,10 @@ namespace HD3 {
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private bool _localPutTrees() {
             try {
                 System.IO.File.WriteAllText(Request.PhysicalApplicationPath + "\\hd3trees.json", this.rawreply.ToString());
