@@ -40,7 +40,7 @@
         </member>
         <member name="M:HD3.HD3.setRawReply">
             <summary>
-            Return json result
+            Return replay
             </summary>
         </member>
         <member name="M:HD3.HD3.#ctor(System.Web.HttpRequest)">

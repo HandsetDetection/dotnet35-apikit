@@ -16,9 +16,3 @@ C:\HD32c.net35\HD3web\bin\HD3.xml
 C:\HD32c.net35\HD3lib\obj\Release\ResolveAssemblyReference.cache
 C:\HD32c.net35\HD3lib\obj\Release\HD3.dll
 C:\HD32c.net35\HD3lib\obj\Release\HD3.pdb
-C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3web\bin\HD3.exe.config
-C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3web\bin\HD3.exe
-C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3web\bin\HD3.pdb
-C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3web\bin\HD3.xml
-C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3lib\obj\Release\HD3.exe
-C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3lib\obj\Release\HD3.pdb
