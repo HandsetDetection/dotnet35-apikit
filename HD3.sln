@@ -5,6 +5,13 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HD3", "HD3.csproj", "{2930B16D-C079-4C17-84E2-CB71B1EAA5C2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CB2679F7-BAA7-4076-8F6F-3F21A67DB301}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HD3Test", "..\HD3Test\HD3Test.csproj", "{08DB8346-E318-45FF-8C96-870A44E68577}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +22,10 @@ Global
 		{2930B16D-C079-4C17-84E2-CB71B1EAA5C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2930B16D-C079-4C17-84E2-CB71B1EAA5C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2930B16D-C079-4C17-84E2-CB71B1EAA5C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08DB8346-E318-45FF-8C96-870A44E68577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08DB8346-E318-45FF-8C96-870A44E68577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08DB8346-E318-45FF-8C96-870A44E68577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08DB8346-E318-45FF-8C96-870A44E68577}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -257,7 +257,7 @@
              Program class to test our HD3 class.
             </Summary>
         </member>
-        <member name="M:HD3.Program.Main(System.String[])">
+        <member name="M:HD3.Program.testDevice">
             <Summary>
              Main method
             </Summary>
@@ -276,6 +276,32 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="T:HD3Test.HD3Test">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Init">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.testdeviceVendors">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.testdeviceModels">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
         </member>
     </members>
 </doc>
