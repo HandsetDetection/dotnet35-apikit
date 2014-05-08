@@ -1,57 +1,126 @@
 ﻿using System;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HD3;
-using System.Collections.Specialized;
+using HD3.Test;
+using System.Diagnostics;
+using System.IO;
+using System.Configuration;
+using System.Reflection;
+using System.Xml;
+using System.Collections;
+using System.Web.Script.Serialization;
+using System.Collections.Generic;
 
 namespace HD3Test
 {    
-    /// <summary>
-    /// 
-    /// </summary>
-    [TestFixture]    
+    [TestClass]    
     public class HD3Test
     {
         private HD3.HD3 hd3;
+        private SecretConfig secretConfig;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [SetUp]
-        public void Init()
+        [TestInitialize]
+        public void Initialize()
         {
-            NameValueCollection appSettings = System.Configuration.ConfigurationManager.AppSettings;
             hd3 = new HD3.HD3();
+            secretConfig = new SecretConfig();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Test]
-	    public void testdeviceVendors() {
-            Assert.False(hd3.UseLocal);
-            Assert.True(hd3.UseLocal);
-	    }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Test]
-        public void testdeviceModels()
+        [TestMethod]
+        public void Test_HD3WrongCredentials()
         {
-            Assert.False(hd3.UseLocal);
-            Assert.True(hd3.UseLocal);
+            Assert.AreEqual<string>(hd3.Username, "your_api_username");
+            Assert.AreEqual<string>(hd3.Secret, "your_api_secret");
+            Assert.AreEqual<string>(hd3.SiteId, "your_api_siteId");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args"></param>
-        public static void Main(string[] args)
+        [TestMethod]
+        public void Test_HD3CorrectCredentials()
         {
-            AppDomain.CurrentDomain.ExecuteAssembly(
-              @"C:\Program Files (x86)\NUnit 2.6.3\bin\nunit-console.exe",
-              null,
-              new string[] { System.Reflection.Assembly.GetExecutingAssembly().Location });
+            Assert.AreEqual<string>(hd3.Username,
+                secretConfig.GetConfigUsername());
+            Assert.AreEqual<string>(hd3.Secret,
+                secretConfig.GetConfigSecret());
+            Assert.AreEqual<string>(hd3.SiteId,
+                secretConfig.GetConfigSiteId());
         }
+
+        [TestMethod]
+        public void Test_SiteDetect()
+        {
+            Assert.IsFalse(hd3.siteDetect());
+        }
+
+        [TestMethod]
+        public void Test_SiteDetectLocal()
+        {
+            Assert.IsTrue(hd3.siteDetect());
+        }
+
+        [TestMethod]
+        public void Test_DeviceVendorsWithWrongUsername()
+        {
+            Assert.AreEqual(hd3.Username, "your_api_username");
+            Assert.IsFalse(hd3.deviceVendors());
+        }
+
+        [TestMethod]
+        public void Test_DeviceVendorsWithCorrectUsername()
+        {
+            Assert.AreEqual(hd3.Username, secretConfig.GetConfigUsername());
+            Assert.IsTrue(hd3.deviceVendors());
+        }
+
+        [TestMethod]
+        public void Test_DeviceModelsNokia()
+        {
+            hd3.deviceModels("Nokia");
+            Assert.IsTrue(hd3.getRawReply().Contains("model"));
+        }
+
+        [TestMethod]
+        public void Test_DeviceModelsLorem()
+        {
+            hd3.deviceModels("Lorem");
+            Assert.IsFalse(hd3.getRawReply().Contains("model"));
+        }
+
+        [TestMethod]
+        public void Test_DeviceViewNokia95()
+        {
+            Assert.IsTrue(hd3.deviceView("Nokia", "N95"));
+            dynamic reply = hd3.getReply();
+            Assert.AreEqual(reply["device"]["general_vendor"], "Nokia");
+            Assert.AreEqual(reply["device"]["general_model"], "N95");
+            Assert.AreEqual(reply["device"]["general_platform"], "Symbian");
+        }
+
+        [TestMethod]
+        public void Test_DeviceViewXCode()
+        {
+            Assert.IsFalse(hd3.deviceView("XCode", "XC14"));
+            dynamic reply = hd3.getReply().ToString();            
+            var jss = new JavaScriptSerializer();
+            jss.DeserializeObject(reply);
+            Assert.AreEqual(reply["device"]["general_vendor"], "Apple");
+            Assert.AreEqual(reply["device"]["general_model"], "XC14");
+            Assert.AreEqual(reply["device"]["general_platform"], "iOS");
+        }
+
+        [TestMethod]
+        public void Test_DeviceWhatHasTrue()
+        {
+            hd3.ReadTimeout = 600;
+            Assert.IsTrue(hd3.deviceWhatHas("network", "cdma"));
+            object reply = hd3.getReply();
+            Assert.AreEqual(reply["status"], 0);
+        }
+
+        [TestMethod]
+        public void Test_DeviceWhatHasFalse()
+        {
+            Assert.IsFalse(hd3.deviceWhatHas("cloud", "wifi"));
+        }       
     }   
 }
+
