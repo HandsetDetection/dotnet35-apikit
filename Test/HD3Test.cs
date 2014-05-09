@@ -10,6 +10,7 @@ using System.Xml;
 using System.Collections;
 using System.Web.Script.Serialization;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace HD3Test
 {    
@@ -52,6 +53,29 @@ namespace HD3Test
         }
 
         [TestMethod]
+        public void Test_NokiaSiteDetect() {
+		    hd3.setDetectVar("user-agent","Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 NokiaN95-3/20.2.011 Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413");
+		    hd3.setDetectVar("x-wap-profile","http://nds1.nds.nokia.com/uaprof/NN95-1r100.xml");
+		    hd3.siteDetect();
+            string reply = hd3.getRawReply();
+            JObject json = JObject.Parse(reply);
+		    Assert.AreEqual("Nokia", json["hd_specs"]["general_vendor"]);
+		    Assert.AreEqual("Symbian", json["hd_specs"]["general_platform"]);
+	    }
+
+        [TestMethod]
+        public void Test_GeoipSiteDetect() {
+		    hd3.setDetectVar("ipaddress","64.34.165.180");            
+            Hashtable openWith = new Hashtable();
+            openWith.Add("options", "geoip,hd_specs");
+            hd3.siteDetect(openWith["options"].ToString());
+		    string reply = hd3.getRawReply();
+            JObject json = JObject.Parse(reply);
+		    Assert.AreEqual("38.9266", json["geoip"]["latitude"]);
+		    Assert.AreEqual("US", json["geoip"]["countrycode"]);
+	    }
+      
+        [TestMethod]
         public void Test_SiteDetectLocal()
         {
             Assert.IsTrue(hd3.siteDetect());
@@ -72,6 +96,14 @@ namespace HD3Test
         }
 
         [TestMethod]
+        public void Test_SamsungDeviceVendors() {
+		    hd3.deviceVendors();
+		    string reply = hd3.getRawReply();
+            JObject json = JObject.Parse(reply);		    
+            Assert.IsTrue(json["vendor"].Equals("Samsung"));
+	    }
+
+        [TestMethod]
         public void Test_DeviceModelsNokia()
         {
             hd3.deviceModels("Nokia");
@@ -89,22 +121,22 @@ namespace HD3Test
         public void Test_DeviceViewNokia95()
         {
             Assert.IsTrue(hd3.deviceView("Nokia", "N95"));
-            dynamic reply = hd3.getReply();
-            Assert.AreEqual(reply["device"]["general_vendor"], "Nokia");
-            Assert.AreEqual(reply["device"]["general_model"], "N95");
-            Assert.AreEqual(reply["device"]["general_platform"], "Symbian");
+            string reply = hd3.getRawReply();
+            JObject json = JObject.Parse(reply);
+            Assert.AreEqual(json["device"]["general_vendor"], "Nokia");
+            Assert.AreEqual(json["device"]["general_model"], "N95");
+            Assert.AreEqual(json["device"]["general_platform"], "Symbian");
         }
 
         [TestMethod]
         public void Test_DeviceViewXCode()
         {
             Assert.IsFalse(hd3.deviceView("XCode", "XC14"));
-            dynamic reply = hd3.getReply().ToString();            
-            var jss = new JavaScriptSerializer();
-            jss.DeserializeObject(reply);
-            Assert.AreEqual(reply["device"]["general_vendor"], "Apple");
-            Assert.AreEqual(reply["device"]["general_model"], "XC14");
-            Assert.AreEqual(reply["device"]["general_platform"], "iOS");
+            string reply = hd3.getRawReply();     
+            JObject json = JObject.Parse(reply);      
+            Assert.AreEqual(json["device"]["general_vendor"], "Apple");
+            Assert.AreEqual(json["device"]["general_model"], "XC14");
+            Assert.AreEqual(json["device"]["general_platform"], "iOS");
         }
 
         [TestMethod]
@@ -112,15 +144,16 @@ namespace HD3Test
         {
             hd3.ReadTimeout = 600;
             Assert.IsTrue(hd3.deviceWhatHas("network", "cdma"));
-            object reply = hd3.getReply();
-            Assert.AreEqual(reply["status"], 0);
+            string reply = hd3.getRawReply();
+            JObject json = JObject.Parse(reply);               
+            Assert.AreEqual("SCP-550CN", json["devices"][5]["general_model"]);
         }
 
         [TestMethod]
         public void Test_DeviceWhatHasFalse()
         {
             Assert.IsFalse(hd3.deviceWhatHas("cloud", "wifi"));
-        }       
+        } 
     }   
 }
 

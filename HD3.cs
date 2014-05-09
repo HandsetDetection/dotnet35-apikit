@@ -223,7 +223,7 @@ namespace HD3 {
         /// </summary>
         public HD3() {
             NameValueCollection appSettings = System.Configuration.ConfigurationManager.AppSettings;
-            string path = System.IO.Path.GetFullPath("../Web.config");
+            string path = System.IO.Path.GetFullPath("HD3web/Web.config");
             Hashtable htResource = new Hashtable();
             XmlDocument document = new XmlDocument();
             document.Load(new StreamReader(path));
