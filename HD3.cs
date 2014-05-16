@@ -48,6 +48,7 @@ using System.Web.Caching;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Xml;
+using Newtonsoft.Json.Linq;
 
 namespace HD3 {
 
@@ -220,28 +221,22 @@ namespace HD3 {
 
         /// <summary>
         /// Default empty constructor
+        /// </summary
+
+        public HD3() { }
+
+        /// <summary>
+        /// Constructor arguments assign your credentials.
         /// </summary>
-        public HD3() {
-            NameValueCollection appSettings = System.Configuration.ConfigurationManager.AppSettings;
-            string path = System.IO.Path.GetFullPath("HD3web/Web.config");
-            Hashtable htResource = new Hashtable();
-            XmlDocument document = new XmlDocument();
-            document.Load(new StreamReader(path));
-            foreach (XmlNode node in document["configuration"]["appSettings"])
-            {
-                if ((node.NodeType != XmlNodeType.Comment) && !htResource.Contains(node.Attributes["key"].Value))
-                {
-                    htResource[node.Attributes["key"].Value] = node.Attributes["value"].Value;
-                }
-            }
-            Username = (htResource["username"] != null) ? htResource["username"].ToString() : this.username;
-            Secret = (htResource["secret"] != null) ? htResource["secret"].ToString() : this.secret;
-            SiteId = (htResource["site_id"] != null) ? htResource["site_id"].ToString() : this.site_id;
-            UseLocal = (htResource["use_local"] != null) ? Convert.ToBoolean(htResource["use_local"]) : this.use_local;
-            UseProxy = (htResource["use_proxy"] != null) ? Convert.ToBoolean(htResource["use_proxy"]) : this.use_proxy;
-            MatchFilter = (htResource["match_filter"] != null) ? htResource["match_filter"].ToString() : this.match_filter;
-            ApiServer = (htResource["api_server"] != null) ? htResource["api_server"].ToString() : this.api_server;
-            LogServer = (htResource["log_server"] != null) ? htResource["log_server"].ToString() : this.log_server;
+        /// <param name="username">Your api username</param>
+        /// <param name="secret">Your api secret</param>
+        /// <param name="siteId">Your api siteId</param>
+        /// <param name="isLocal">true</param>
+        public HD3(string username, string secret, string siteId, bool isLocal) {
+            this.Username = username;
+            this.Secret = secret;
+            this.SiteId = siteId;
+            this.UseLocal = isLocal;
         }
 
         /// <summary>Sets additional http headers for detection request, will override default headers.</summary>
@@ -409,9 +404,9 @@ namespace HD3 {
         /// <summary>Fetches all supported Vendors available at handsetdetection.com</summary>
         /// <returns>true if successful, false otherwise</returns>
         public bool deviceVendors() {
-            resetLog();
+            resetLog();            
             try {
-                if (this.use_local)
+                if (this.UseLocal)
                     return _localDeviceVendors();
                 else
                     return Remote("/device/vendors.json", null);

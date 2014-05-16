@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>DocaLabs.Http.Client</id>
+    <version>3.0.0.0</version>
+    <title>DocaLabs.Http.Client</title>
+    <authors>Alexey Kadyrov</authors>
+    <owners>Alexey Kadyrov</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>https://github.com/alexey-kadyrov/DocaLabs.Http.Client</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Strong typed HTTP client. The main goal of the library is to minimize plumbing code to bare minimum.</description>
+    <summary>Strong typed HTTP client library.</summary>
+    <releaseNotes>* Added full support for async execution</releaseNotes>
+    <copyright>Copyright ©2013 Alexey Kadyrov</copyright>
+    <tags>http client strong typed library</tags>
+  </metadata>
+</package>

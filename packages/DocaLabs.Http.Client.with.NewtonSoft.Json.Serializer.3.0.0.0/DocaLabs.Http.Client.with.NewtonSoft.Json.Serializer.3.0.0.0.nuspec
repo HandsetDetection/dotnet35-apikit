@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>DocaLabs.Http.Client.with.NewtonSoft.Json.Serializer</id>
+    <version>3.0.0.0</version>
+    <title>DocaLabs.Http.Client with NewtonSoft Json Serializer</title>
+    <authors>Alexey Kadyrov</authors>
+    <owners>Alexey Kadyrov</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>https://github.com/alexey-kadyrov/DocaLabs.Http.Client</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Strong typed HTTP client with provider using. The main goal of the library is to minimize plumbing code to bare minimum.</description>
+    <summary>Strong typed HTTP client library bundled with NewtonSoft Json Serializer.</summary>
+    <releaseNotes>* Added full support for async execution</releaseNotes>
+    <copyright>Copyright ©2013 Alexey Kadyrov</copyright>
+    <tags>http client strong typed library</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="5.0.6" />
+      <dependency id="DocaLabs.Http.Client" version="3.0.0.0" />
+    </dependencies>
+  </metadata>
+</package>
