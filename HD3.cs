@@ -1024,7 +1024,8 @@ namespace HD3 {
         public bool siteFetchArchive()
         {
             resetLog();
-            bool status = this.Remote("/site/fetcharchive/" + this.site_id + ".json", null);
+            bool status = this.Remote("/site/fetcharchive/" + this.SiteId + ".json", null);
+            
             if (!status)
                 return false;
 
@@ -1229,4 +1230,5 @@ namespace HD3 {
             return sb.ToString().ToLower();
         }
     }
+
 }
