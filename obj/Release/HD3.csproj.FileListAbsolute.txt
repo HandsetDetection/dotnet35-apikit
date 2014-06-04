@@ -30,4 +30,3 @@ C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3lib\HD3web\bin\nunit
 C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3lib\obj\Release\HD3.pdb
 C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3lib\HD3web\bin\HD3.dll
 C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3lib\obj\Release\HD3.dll
-C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3lib\obj\Release\HD3.csprojResolveAssemblyReference.cache

@@ -70,12 +70,19 @@ namespace HD3 {
         string prefix = "hd32-";
         Cache myCache;
 
+        /// <summary>
+        /// The HD3Cache class constructor
+        /// </summary>
+        /// <param name="cache"></param>
+        public HD3Cache(Cache cache) {
+            this.myCache = cache;
+        }
+
         ///<Summary>
         /// The HD3Cache class constructor
         ///</Summary>
-        public HD3Cache() {
-            if(myCache != null)
-                this.myCache = System.Web.HttpContext.Current.Cache;
+        public HD3Cache()
+            :this(System.Web.HttpContext.Current.Cache) {
         }
 
         /// <summary>
@@ -138,10 +145,22 @@ namespace HD3 {
 
         public int ReadTimeout { get; set; }
         public int ConnectTimeout { get; set; }
-        public string Username { get; set; }
-        public string Secret { get; set; }
-        public string SiteId { get; set; }
-        public bool UseLocal { get; set; }
+        public string Username {
+            get { return this.username;  }
+            set { this.username = value;  }
+        }
+        public string Secret {
+            get { return this.secret;  }
+            set { this.secret = value;  }
+        }
+        public string SiteId {
+            get { return this.site_id; }
+            set { this.site_id = value;  }
+        }
+        public bool UseLocal {
+            get { return this.use_local; }
+            set { this.use_local = value; }
+        }
         public bool UseProxy { get; set; }
         public string ProxyServer { get; set; }
         public string ProxyPort { get; set; }
@@ -216,7 +235,7 @@ namespace HD3 {
             }
             AddKey("user-agent", request.UserAgent);
             AddKey("ipaddress", request.UserHostAddress);
-            AddKey("request_uri", request.Url.ToString());
+            AddKey("request_uri", request.Url.ToString());            
         }
 
         /// <summary>
@@ -636,7 +655,7 @@ namespace HD3 {
         public bool siteDetect(string options) {
             resetLog();
 
-            if (this.m_detectRequest.ContainsKey("user-agent")) {
+            if (this.m_detectRequest.ContainsKey("user-agent")) {                
                 Regex reg = new Regex(this.non_mobile, RegexOptions.IgnoreCase);
                 if (reg.IsMatch(this.m_detectRequest["user-agent"].ToString())) {
 #if HD3_DEBUG
@@ -659,11 +678,11 @@ namespace HD3 {
             }
  
             try {
-                if (this.use_local) {
+                if (this.UseLocal) {                    
                     return _localSiteDetect(this.m_detectRequest);
                 } else {
                     this.AddKey("options", options);
-                    return Remote("/site/detect/" + this.site_id + ".json", this.m_detectRequest);
+                    return Remote("/site/detect/" + this.SiteId + ".json", this.m_detectRequest);
                 }
             } catch (Exception ex) {
                 this.setError("Exception : " + ex.Message + " " + ex.StackTrace);
@@ -676,14 +695,14 @@ namespace HD3 {
         /// </summary>
         /// <param name="headers"></param>
         /// <returns></returns>
-        private bool _localSiteDetect(Dictionary<string, string> headers) {
+        private bool _localSiteDetect(Dictionary<string, string> headers) {            
             Dictionary<string, object> device = null;
             Dictionary<string, object> platform = null;
             Dictionary<string, object> browser = null;
 
-            int id = _getDevice(headers);
+            int id = _getDevice(headers);            
             if (id > 0) {
-                device = _getCacheSpecs(id, "device");
+                device = _getCacheSpecs(id, "device");                
 			    if (device == null) {
                     this.reply = new Dictionary<string, object>();
 				    this.reply["status"] = 225;
@@ -753,7 +772,7 @@ namespace HD3 {
         /// </summary>
         /// <param name="headers"></param>
         /// <returns></returns>
-        private int _getDevice(Dictionary<string, string> headers) {
+        private int _getDevice(Dictionary<string, string> headers) {            
             int id;
 		    // Remember the agent for generic matching later.
 		    string genericAgent = "";
@@ -792,7 +811,7 @@ namespace HD3 {
 		    // Generic matching - Match of last resort.
 #if HD3_DEBUG
             this._log("Trying Generic Match");
-#endif
+#endif                        
             return this._matchDevice("user-agent", genericAgent, true);
 	    }
         
@@ -835,7 +854,7 @@ namespace HD3 {
             if (generic == true)
                 treetag = header+"1";
             else
-                treetag = header+"0";
+                treetag = header+"0";            
             return this._match(header, value, treetag);
 	    }   
 
@@ -896,7 +915,7 @@ namespace HD3 {
         /// <param name="newvalue"></param>
         /// <param name="treetag"></param>
         /// <returns></returns>
-        private int _match(string header, string newvalue, string treetag) {
+        private int _match(string header, string newvalue, string treetag) {            
 		
 		    int f = 0,r = 0;		
 #if HD3_DEBUG
@@ -919,29 +938,29 @@ namespace HD3 {
 #if HD3_DEBUG
 		    this._log("Loading match branch "+treetag);
 #endif            
-            Dictionary<string, object> branch = this._getBranch(treetag);
+            Dictionary<string, object> branch = this._getBranch(treetag);                  
 		    if (branch == null) {
 #if HD3_DEBUG
                 this._log("Match branch "+treetag+" empty - returning false");
-#endif
+#endif                
                 return 0;
 		    }
 #if HD3_DEBUG
 		    this._log("Match branch loaded");		
-#endif		
-		    if (header == "user-agent") {		
+#endif                                               
+		    if (header == "user-agent") {                
 			    // Sieve matching strategy
                 foreach (KeyValuePair<string, object> orders in branch)
-                {
+                {                    
 #if HD3_DEBUG
                     this._log("OK using order " + orders.Key + " in " + newvalue);
-#endif
+#endif                    
                     foreach (KeyValuePair<string, object> filters in (IEnumerable)orders.Value)
                     {
 					    f++;
 #if HD3_DEBUG
                         this._log("FK Looking for "+filters.Key+" in "+newvalue);
-#endif
+#endif                        
 					    if (newvalue.IndexOf(filters.Key) >= 0) {
                             foreach (KeyValuePair<string, object> matches in (IEnumerable)filters.Value)
                             {
@@ -952,20 +971,20 @@ namespace HD3 {
 							    if (newvalue.IndexOf(matches.Key) >= 0) {
 #if HD3_DEBUG
                                     this._log("Match Found : "+filters.Key+ "/"+matches.Key+"/" +matches.Value+" wins on "+newvalue+" ("+f+"/"+r+")");
-#endif
+#endif                                    
                                     return Convert.ToInt32(matches.Value.ToString());
 							    }
 						    }
 					    }
 				    }
 			    }
-		    } else {
+		    } else {                
 			    // Direct matching strategy
                 try {
                     int id = Convert.ToInt32(branch[newvalue]);
 #if HD3_DEBUG
                     this._log("Match found : " + treetag + " " + newvalue + " (" + f + "/" + r + ")");
-#endif
+#endif                    
                     return id;
                 } catch (Exception ex) {
                 }
@@ -983,28 +1002,26 @@ namespace HD3 {
         /// <param name="treetag"></param>
         /// <returns></returns>
         private Dictionary<string, object> _getBranch(string treetag)
-        {
+        {            
 		    // See if its in the class
             if (this.tree.ContainsKey(treetag)) {
 #if HD3_DEBUG
                 this._log(treetag + " fetched from memory");
-#endif
+#endif                
                 return (Dictionary<string, object>) this.tree[treetag];
-		    }
-
+		    }            
             // Not in class - try Cache.
-            Dictionary<string, object> obj = myCache.read(treetag);
-            if (obj != null && obj.Count != 0) {
+            Dictionary<string, object> obj = myCache.read(treetag);            
+            if (obj != null && obj.Count != 0) {                
 #if HD3_DEBUG
                 this._log(treetag + " fetched from cache. count : "+obj.Count);
 #endif
                 this.tree[treetag] = obj;
                 return obj;
-            }
-
+            }            
             // Its in neither - so populate both.            
             this._setCachecArchives();
-
+            
             // If it doesnt exist after immediate refresh then something is wrong.
 		    if (! this.tree.ContainsKey(treetag))
                 this.tree[treetag] = new Dictionary<string, object>();
@@ -1140,12 +1157,11 @@ namespace HD3 {
         /// </summary>
         /// <returns></returns>
         private Dictionary<string, object> _localGetSpecs()
-        {
+        {            
             var jss = new JavaScriptSerializer();
-            jss.MaxJsonLength = this.maxJsonLength;
-
-            try {
-                string jsonText = System.IO.File.ReadAllText(Request.PhysicalApplicationPath + "\\hd3specs.json");
+            jss.MaxJsonLength = this.maxJsonLength;            
+            try {                
+                string jsonText = System.IO.File.ReadAllText(Request.PhysicalApplicationPath + "\\hd3specs.json");                
                 Dictionary<string, object> data = jss.Deserialize<Dictionary<string, object>>(jsonText);
                 return data;
             } catch (Exception ex) {
@@ -1163,7 +1179,7 @@ namespace HD3 {
             var jss = new JavaScriptSerializer();
             jss.MaxJsonLength = this.maxJsonLength;
 
-            try {
+            try {                
                 string jsonText = System.IO.File.ReadAllText(Request.PhysicalApplicationPath + "\\hd3trees.json");
                 Dictionary<string, object> data = jss.Deserialize<Dictionary<string, object>>(jsonText);
                 return data;
@@ -1228,7 +1244,6 @@ namespace HD3 {
                 sb.Append(hash[i].ToString("X2"));
             }
             return sb.ToString().ToLower();
-        }
-    }
-
+        }      
+    }       
 }

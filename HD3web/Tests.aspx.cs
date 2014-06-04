@@ -73,7 +73,7 @@ public partial class Tests : System.Web.UI.Page
         Response.Write("<h1>Test complete</h1>");
         float elapsedTimeSec = (float)timer.Elapsed.TotalMilliseconds / 1000F;
         int dps = (int)((int)totalCount / elapsedTimeSec);
-        Response.Write("<h3>Elapsed Time " + elapsedTimeSec + "ms, Total detections: " + totalCount + ", Detections per second: " + dps + "</h3>");
+        Response.Write("<h3>Elapsed Time " + elapsedTimeSec + "s, Total detections: " + totalCount + ", Detections per second: " + dps + "</h3>");
     }
 
     private void multipleInstance()
@@ -128,7 +128,7 @@ public partial class Tests : System.Web.UI.Page
         Response.Write("<h1>Test complete</h1>");
         float elapsedTimeSec = (float)timer.Elapsed.TotalMilliseconds / 1000F;
         int dps = (int)((int)totalCount / elapsedTimeSec);
-        Response.Write("<h3>Elapsed Time " + elapsedTimeSec + "ms, Total detections: " + totalCount + ", Detections per second: " + dps + "</h3>");
+        Response.Write("<h3>Elapsed Time " + elapsedTimeSec + "s, Total detections: " + totalCount + ", Detections per second: " + dps + "</h3>");
     }
 
     private void header()

@@ -9,6 +9,12 @@
              The HD3Cache class
             </Summary>
         </member>
+        <member name="M:HD3.HD3Cache.#ctor(System.Web.Caching.Cache)">
+            <summary>
+            The HD3Cache class constructor
+            </summary>
+            <param name="cache"></param>
+        </member>
         <member name="M:HD3.HD3Cache.#ctor">
             <Summary>
              The HD3Cache class constructor
