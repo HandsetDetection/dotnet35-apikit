@@ -9,16 +9,11 @@
              The HD3Cache class
             </Summary>
         </member>
-        <member name="M:HD3.HD3Cache.#ctor(System.Web.Caching.Cache)">
+        <member name="M:HD3.HD3Cache.#ctor">
             <summary>
             The HD3Cache class constructor
             </summary>
             <param name="cache"></param>
-        </member>
-        <member name="M:HD3.HD3Cache.#ctor">
-            <Summary>
-             The HD3Cache class constructor
-            </Summary>
         </member>
         <member name="M:HD3.HD3Cache.write(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
@@ -56,7 +51,6 @@
             </summary>
             <param name="request">HttpRequest object from page</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:HD3.HD3.#ctor" -->
         <member name="M:HD3.HD3.#ctor(System.String,System.String,System.String,System.Boolean)">
             <summary>
             Constructor arguments assign your credentials.
@@ -64,7 +58,17 @@
             <param name="username">Your api username</param>
             <param name="secret">Your api secret</param>
             <param name="siteId">Your api siteId</param>
-            <param name="isLocal">true</param>
+            <param name="isLocal">false</param>
+        </member>
+        <member name="M:HD3.HD3.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="M:HD3.HD3.setupProperties">
+            <summary>
+            set other fields
+            </summary>
         </member>
         <member name="M:HD3.HD3.setDetectVar(System.String,System.String)">
             <summary>Sets additional http headers for detection request, will override default headers.</summary>
