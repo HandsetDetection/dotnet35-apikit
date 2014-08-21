@@ -48,6 +48,7 @@ using System.Web.Caching;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Xml;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace HD3 {
@@ -98,13 +99,14 @@ namespace HD3 {
         /// <param name="value"></param>
         public void write(string key, Dictionary<string, object> value) {
             var s = this.prefix + key;
-            if (value != null && key != "" && this.myCache[s] == null) {
+            Console.WriteLine(s);
+            /*if (value != null && key != "" && this.myCache[s] == null) {
                 var jss = new JavaScriptSerializer();
                 jss.MaxJsonLength = this.maxJsonLength;
                 string storethis = jss.Serialize(value);
                 //this.myCache[s] = storethis;
                 this.myCache.Insert(s, storethis, null, DateTime.Now.AddHours(24), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null);
-            }
+            }*/
         }
 
         /// <summary>
@@ -171,7 +173,7 @@ namespace HD3 {
 
         private HD3Cache myCache = new HD3Cache();
         //Parameters to send for detection request
-        private Dictionary<string, string> m_detectRequest = new Dictionary<string, string>();
+        public Dictionary<string, string> m_detectRequest = new Dictionary<string, string>();
         private string rawreply;
         private Dictionary<string, object> reply = new Dictionary<string, object>();
         private Dictionary<string, object> tree = new Dictionary<string, object>();
@@ -258,7 +260,7 @@ namespace HD3 {
         /// <param name="val"></param>
         public void setDetectVar(string key, string val) { AddKey(key, val); }
 
-        private void AddKey(string key, string value) {
+        public void AddKey(string key, string value) {
             key = key.ToLower();
             if (this.m_detectRequest.ContainsKey(key)) {
                 this.m_detectRequest.Remove(key);
@@ -308,7 +310,8 @@ namespace HD3 {
             this.reply = null;
             var jss = new JavaScriptSerializer();
             jss.MaxJsonLength = this.maxJsonLength;
-            Uri url = new Uri("http://" + ApiServer + "/apiv3" + service);            
+            Uri url = new Uri("http://" + ApiServer + "/apiv3" + service);          
+  
 #if HD3_DEBUG
             this._log("Preparing to send to " + "http://" + this.api_server + "/apiv3" + service);
 #endif
@@ -1127,7 +1130,8 @@ namespace HD3 {
             var jss = new JavaScriptSerializer();
             jss.MaxJsonLength = this.maxJsonLength;            
             try {                
-                string jsonText = System.IO.File.ReadAllText(Request.PhysicalApplicationPath + "\\hd3specs.json");                
+                //string jsonText = System.IO.File.ReadAllText(Request.PhysicalApplicationPath + "\\hd3specs.json");                
+                string jsonText = System.IO.File.ReadAllText(@"c:\\hd3specs.json");     
                 Dictionary<string, object> data = jss.Deserialize<Dictionary<string, object>>(jsonText);
                 return data;
             } catch (Exception ex) {
@@ -1160,7 +1164,9 @@ namespace HD3 {
         /// </summary>
         /// <returns></returns>
         private bool _localPutSpecs() {
+            Console.WriteLine("aw");
             try {
+                Console.WriteLine(Request.PhysicalApplicationPath);
                 System.IO.File.WriteAllText(Request.PhysicalApplicationPath + "\\hd3specs.json", this.rawreply.ToString());
                 return true;
             } catch (Exception ex) {
@@ -1210,6 +1216,7 @@ namespace HD3 {
                 sb.Append(hash[i].ToString("X2"));
             }
             return sb.ToString().ToLower();
-        }   
+        }
+
     }       
 }

@@ -1,0 +1,7 @@
+﻿------ Discover test started ------
+NUnit 1.1.0.0 discovering tests is started
+NUnit 1.1.0.0 discovering test is finished
+========== Discover test finished: 37 found (0:00:00.2140123) ==========
+------ Run test started ------
+No test is available in C:\Users\Bobcat\Desktop\HandsetDetection\dotnet35-apikit\HD3lib\HD3web\bin\HD3.exe. Make sure that installed test discoverers & executors, platform & framework version settings are appropriate and try again.
+========== Run test finished: 0 run (0:00:03.1111779) ==========

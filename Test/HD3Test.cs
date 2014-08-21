@@ -9,11 +9,11 @@ using System.Collections;
 using System.Web.Script.Serialization;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+using NUnit.Framework;
 
 namespace HD3Test
-{
-    using NUnit.Framework;
-
+{    
     [TestFixture]    
     public class HD3Test
     {
@@ -429,7 +429,7 @@ namespace HD3Test
             map.Add("h5", h5);
             map.Add("h6", h6);
             map.Add("h7", h7);
-            hd3 = new HD3.HD3("your_api_username", "your_api_secret", "your_api_siteId", true);
+            hd3 = new HD3.HD3("203a2c5495", "4Mcy7r7wDFdCDbg2", "50538", false);
         }
 
         [Test]
@@ -487,7 +487,14 @@ namespace HD3Test
             data.Add("x-wap-profile", profile);
             data.Add("ipaddress", ipaddress);
 
-            //var hd3 = new HD3()
+            hd3.UseLocal = false;            
+            hd3.AddKey("user-agent", header);
+            hd3.AddKey("x-wap-profile", profile);
+            hd3.AddKey("ipaddress", ipaddress);
+
+            Assert.AreEqual(data.GetValue("user-agent").ToString(), hd3.m_detectRequest["user-agent"].ToString());
+            Assert.AreEqual(data.GetValue("x-wap-profile").ToString(), hd3.m_detectRequest["x-wap-profile"].ToString());
+            Assert.AreEqual(data.GetValue("ipaddress").ToString(), hd3.m_detectRequest["ipaddress"].ToString());
         }
 
         [Test]
@@ -495,9 +502,13 @@ namespace HD3Test
         {
             string header = "Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 NokiaN95-3/20.2.011 Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413";
             string profile = "http://nds1.nds.nokia.com/uaprof/NN95-1r100.xml";
-            JObject json = new JObject();
-            json.Add("user-agent", header);
-            json.Add("x-wap-profile", profile);
+            JObject data = new JObject();
+            data.Add("user-agent", header);
+            data.Add("x-wap-profile", profile);
+            hd3.AddKey("user-agent", header);
+            hd3.AddKey("x-wap-profile", profile);
+            Assert.AreEqual(data.GetValue("user-agent").ToString(), hd3.m_detectRequest["user-agent"].ToString());
+            Assert.AreEqual(data.GetValue("x-wap-profile").ToString(), hd3.m_detectRequest["x-wap-profile"].ToString());
         }
 
         [Test]
@@ -578,8 +589,23 @@ namespace HD3Test
             bool reply = hd3.deviceWhatHas("design_dimensions", "101 x 44 x 16");
             string data = hd3.getRawReply();
             JObject json = JObject.Parse(data);
+            List<string> specs = new List<string>() { "Asus", "V80", "Spice", "S900", "Voxtel", "RX800" };
+            Assert.IsTrue(reply);
+            foreach (string spec in specs)
+            {
+                var retSpec = (from pt in json["devices"]
+                         where (string)pt["id"] == spec || (string)pt["general_vendor"] == spec || (string)pt["general_model"] == spec
+                         select pt).Any();
+
+                Assert.IsTrue(retSpec);
+            }
         }
 		
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="local"></param>
+        /// <param name="proxy"></param>
 		[Test]
         public void SiteDetect(bool local, bool proxy)
         {
@@ -594,8 +620,41 @@ namespace HD3Test
                 Assert.IsFalse(reply);
                 Assert.AreEqual(301, int.Parse(json["status"].ToString()));
             }
+            foreach (KeyValuePair<string, Dictionary<string, string>> entries in map)
+            {
+                string agent = entries.Value["user-agent"];
+                string profile = entries.Value["x-wap-profile"];
+                string matchKey = entries.Value["match"];
+                if (agent.Length > 0)
+                {
+                    hd3.AddKey("user-agent", agent);
+                }
+                if (profile.Length > 0)
+                {
+                    hd3.AddKey("x-wap-profile", profile);
+                }
+                bool reply = hd3.siteDetect();                
+                string data = hd3.getRawReply();
+                JObject json = JObject.Parse(data);                                
+                Assert.AreEqual(0, int.Parse(json["status"].ToString()));
+                Assert.AreEqual("OK", json["message"]);
+                Assert.AreEqual(json["class"], json["hd_specs"]["general_type"]);
+                var enumerator = headers.GetEnumerator();
+                while(enumerator.MoveNext())
+                {
+                    string key = enumerator.Current.Key;
+                    string value = enumerator.Current.Value;
+                    if(key.Equals(matchKey))
+                    {
+                        this.Test_CompareDevices(json["hd_specs"].ToString(), value);
+                    }                    
+                }                
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Test]
         public void Test_NokiaSiteDetect() {
 		    hd3.setDetectVar("user-agent","Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 NokiaN95-3/20.2.011 Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413");
@@ -607,6 +666,9 @@ namespace HD3Test
 		    Assert.AreEqual("Symbian", json["hd_specs"]["general_platform"]);
 	    }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Test]
         public void Test_GeoipSiteDetect() {
 		    hd3.setDetectVar("ipaddress","64.34.165.180");            
@@ -619,12 +681,9 @@ namespace HD3Test
 		    Assert.AreEqual("US", json["geoip"]["countrycode"]);
 	    }
 
-        [Test]
-        public void Test_SiteDetectLocal()
-        {
-            Assert.IsTrue(hd3.siteDetect());
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
         [Test]
         public void Test_DeviceVendorsWithWrongUsername()
         {
@@ -632,6 +691,9 @@ namespace HD3Test
             Assert.IsFalse(hd3.deviceVendors());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Test]
         public void Test_DeviceVendorsFound()
         {
@@ -643,6 +705,9 @@ namespace HD3Test
             Assert.IsTrue(InJsonList("Tecno", key, reply));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Test]
         public void Test_DeviceVendorsNotFound()
         {
@@ -654,6 +719,9 @@ namespace HD3Test
             Assert.IsFalse(InJsonList("Advance", key, reply));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Test]
         public void Test_DeviceModelsNokiaPass()
         {
@@ -856,6 +924,16 @@ namespace HD3Test
             this.DeviceView(true, false);
             this.DeviceWhatHas(true, false);
             this.SiteDetect(true, false);
+        }
+
+        [Test]
+        public void Test_CompareDevices(string value1, string value2)
+        {
+            JObject json1 = JObject.Parse(value1);
+            JObject json2 = JObject.Parse(value2);
+            json1.Remove("general_language");
+            json1.Remove("general_language_full");            
+            Assert.AreEqual(true, JToken.DeepEquals(json1, json2));
         }
 
         [TestFixtureTearDown]
