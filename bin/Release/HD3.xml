@@ -60,11 +60,6 @@
             <param name="siteId">Your api siteId</param>
             <param name="isLocal">false</param>
         </member>
-        <member name="M:HD3.HD3.#ctor">
-            <summary>
-            Default Constructor
-            </summary>
-        </member>
         <member name="M:HD3.HD3.setupProperties">
             <summary>
             set other fields
@@ -249,6 +244,30 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:HD3.HD3.siteFetchTrees">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HD3.HD3._setCacheTrees">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HD3.HD3.siteFetchSpecs">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HD3.HD3._setCacheSpecs">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:HD3.HD3._localGetTrees">
             <summary>
             
@@ -267,42 +286,201 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:HD3Test.HD3Test.SiteDetect(System.Boolean,System.Boolean)">
+        <member name="T:HD3Test.HD3Test">
             <summary>
             
             </summary>
-            <param name="local"></param>
-            <param name="proxy"></param>
+        </member>
+        <member name="F:HD3Test.HD3Test.nokiaN95">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Initialize">
+            <summary>
+            initialize objects
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_UsernameRequired">
+            <summary>
+            Test for runtime exception
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_SecretRequired">
+            <summary>
+            Test for runtime exception
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_PassedConfig">
+            <summary>
+            Test for a config passed to the constructor
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_DefaultFileConfig">
+            <summary>
+            Test for default config readon from config file
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_DefaultSetup">
+            <summary>
+            Test for default http headers read when a new object is instantiated
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_ManualSetup">
+            <summary>
+            Test for manual setting of http headers
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_InvalidCredentials">
+            <summary>
+            Test for invalis API credentials
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.DeviceVendors(System.Boolean,System.Boolean)">
+            <summary>
+            The list is continually growing so ensure its a min length and common vendors are present
+            </summary>
+            <param name="local">True if running in local mode, false otherwise</param>
+            <param name="proxy">True if using proxy for API queries</param>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_DeviceVendorsFail">
+            <summary>
+            The list is continually growing so ensure its a min length and common vendors are present
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.DeviceModels(System.Boolean,System.Boolean)">
+            <summary>
+            This list is also continually growing so ensure its a minimum length
+            </summary>
+            <param name="local">True if running in local mode, false otherwise</param>
+            <param name="proxy">True if using proxy for API queries</param>
+        </member>
+        <member name="M:HD3Test.HD3Test.DeviceView(System.Boolean,System.Boolean)">
+            <summary>
+            View detailed information about one device
+            </summary>
+            <param name="local">True if running in local mode, false otherwise</param>
+            <param name="proxy">True if using proxy for API queries</param>
+        </member>
+        <member name="M:HD3Test.HD3Test.DeviceWhatHas(System.Boolean,System.Boolean)">
+            <summary>
+            Find which devices have a specific property
+            </summary>
+            <param name="local">True if running in local mode, false otherwise</param>
+            <param name="proxy">True if using proxy for API queries</param>
+        </member>
+        <member name="M:HD3Test.HD3Test.SiteDetect(System.Boolean,System.Boolean)">
+            <summary>
+            Perform a battery of detection tests
+            </summary>
+            <param name="local">True if running in local mode, false otherwise</param>
+            <param name="proxy">True if using proxy for API queries</param>
         </member>
         <member name="M:HD3Test.HD3Test.Test_NokiaSiteDetect">
             <summary>
-            
-            </summary>
-        </member>
-        <member name="M:HD3Test.HD3Test.Test_GeoipSiteDetect">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:HD3Test.HD3Test.Test_DeviceVendorsWithWrongUsername">
-            <summary>
-            
+            Test device nokia browser detect
             </summary>
         </member>
         <member name="M:HD3Test.HD3Test.Test_DeviceVendorsFound">
             <summary>
-            
+            Test device vendors found
             </summary>
         </member>
         <member name="M:HD3Test.HD3Test.Test_DeviceVendorsNotFound">
             <summary>
-            
+            Test device vendors not found
             </summary>
         </member>
         <member name="M:HD3Test.HD3Test.Test_DeviceModelsNokiaPass">
             <summary>
-            
+            Test device nokia models; true
             </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_DeviceModelsNokiaFail">
+            <summary>
+            Test device nokia models; false
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_DeviceViewNokia95">
+            <summary>
+            Test device view nokia n95
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_DeviceViewAppleIPhone5s">
+            <summary>
+            Test device view apple iphone 5s
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_CloudApiCalls">
+            <summary>
+            Runs the Api tests against the Cloud web service
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_CloudProxyApiCalls">
+            <summary>
+            Runs the same tests as testCloudApiCalls() but through a proxy
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_UltimateFetchTrees">
+            <summary>
+            Test fetching the detection trees
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_UltimateFetchTreesFail">
+            <summary>
+            Test invalid credentials for accessing fetchTrees
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_UltimateFetchSpecs">
+            <summary>
+            Fetch the device specs
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_UltimateFetchSpecsFail">
+            <summary>
+            Test invalid credentials for accessing fetchSpecs
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_UltimateFetchArchive">
+            <summary>
+            Test fetchArchive
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_UltimateApiCalls">
+            <summary>
+            Test Ultimate mode for API calls
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.Test_CompareDevices(System.String,System.String)">
+            <summary>
+            Compare two json contents
+            </summary>
+            <param name="value1"></param>
+            <param name="value2"></param>
+        </member>
+        <member name="M:HD3Test.HD3Test.TearDown">
+            <summary>
+            Clean object
+            </summary>
+        </member>
+        <member name="M:HD3Test.HD3Test.InJsonList(System.String,System.String,System.String)">
+            <summary>
+            Check if key exist
+            </summary>
+            <param name="value"></param>
+            <param name="key"></param>
+            <param name="reply"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HD3Test.HD3Test.InJsonMultiList(System.String,System.String,System.String,System.String)">
+            <summary>
+            Check if keys exist
+            </summary>
+            <param name="value"></param>
+            <param name="key1"></param>
+            <param name="key2"></param>
+            <param name="reply"></param>
+            <returns>boolean</returns>
         </member>
     </members>
 </doc>
