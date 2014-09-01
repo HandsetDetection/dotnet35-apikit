@@ -897,7 +897,7 @@ namespace HD3Test
             hd3.FileDirectory = "tmp";
             bool reply = hd3.siteFetchSpecs();
             Assert.IsTrue(reply);
-            Assert.AreEqual(true, File.Exists(hd3.FileDirectory + "\\hd3trees.json"));
+            Assert.AreEqual(true, File.Exists(hd3.FileDirectory + "\\hd3specs.json"));
             string[] filenames = { "Device_10.json", "Extra_546.json", "Device_46142.json", "Extra_9.json", "Extra_102.json", "user-agent0.json", "user-agent1.json", "user-agentplatform.json", "user-agentbrowser.json", "profile0.json" };
             foreach (string filename in filenames)
             {

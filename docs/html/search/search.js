@@ -7,11 +7,12 @@
 
 var indexSectionsWithContent =
 {
-  0: "cdghrsw",
-  1: "h",
+  0: "_cdghinrstw",
+  1: "_dhst",
   2: "h",
-  3: "cdghrsw",
-  4: "h"
+  3: "cdghirstw",
+  4: "n",
+  5: "h"
 };
 
 var indexSectionNames =
@@ -20,7 +21,8 @@ var indexSectionNames =
   1: "classes",
   2: "namespaces",
   3: "functions",
-  4: "pages"
+  4: "variables",
+  5: "pages"
 };
 
 function convertToId(search)

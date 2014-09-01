@@ -20,13 +20,13 @@ Main class for all handset detection A\+P\+I calls
 \item 
 \hyperlink{class_h_d3_1_1_h_d3_a0a238bb9c0e43132312e5c863292c577}{H\+D3} (Http\+Request request)
 \begin{DoxyCompactList}\small\item\em Initializes the necessary information for a lookup from request object Accepts Object inializers \end{DoxyCompactList}\item 
-\hypertarget{class_h_d3_1_1_h_d3_a6f369b558b21414a20af987df0007a75}{\hyperlink{class_h_d3_1_1_h_d3_a6f369b558b21414a20af987df0007a75}{H\+D3} ()}\label{class_h_d3_1_1_h_d3_a6f369b558b21414a20af987df0007a75}
-
-\begin{DoxyCompactList}\small\item\em Default empty constructor $<$/summary \end{DoxyCompactList}\item 
 \hyperlink{class_h_d3_1_1_h_d3_aab536381ba3fffcd9cf449618b0829dd}{H\+D3} (string username, string secret, string site\+Id, bool is\+Local)
 \begin{DoxyCompactList}\small\item\em Constructor arguments assign your credentials. \end{DoxyCompactList}\item 
 void \hyperlink{class_h_d3_1_1_h_d3_a658104a63e4bac0a909cdcfed8c2d49b}{set\+Detect\+Var} (string key, string val)
 \begin{DoxyCompactList}\small\item\em Sets additional http headers for detection request, will override default headers.\end{DoxyCompactList}\item 
+\hypertarget{class_h_d3_1_1_h_d3_a6d161a64b29722a6ed1f16db537cf1d1}{void {\bfseries Add\+Key} (string key, string value)}\label{class_h_d3_1_1_h_d3_a6d161a64b29722a6ed1f16db537cf1d1}
+
+\item 
 void \hyperlink{class_h_d3_1_1_h_d3_a92e1a5bec8573497497bb7e4082a6b5c}{reset\+Log} ()
 \begin{DoxyCompactList}\small\item\em Reset logger \end{DoxyCompactList}\item 
 string \hyperlink{class_h_d3_1_1_h_d3_a2436e33681884291c6ad1b2ee112e17b}{get\+Log} ()
@@ -46,9 +46,22 @@ bool \hyperlink{class_h_d3_1_1_h_d3_af32925ae9a40280796ab4ec154ec21b6}{site\+Det
 bool \hyperlink{class_h_d3_1_1_h_d3_a1d97b7bb6d69aa9a9b598c12b704f262}{site\+Detect} (string options)
 \begin{DoxyCompactList}\small\item\em site detect \end{DoxyCompactList}\item 
 bool \hyperlink{class_h_d3_1_1_h_d3_af615c943aace3228c387e3a0a66bac23}{site\+Fetch\+Archive} ()
+\item 
+bool \hyperlink{class_h_d3_1_1_h_d3_ab7987ac1e6295533e55dcd5d300ae9cc}{site\+Fetch\+Trees} ()
+\item 
+bool \hyperlink{class_h_d3_1_1_h_d3_ae8d86be9f088829ebe42214cfb26672e}{site\+Fetch\+Specs} ()
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_h_d3_1_1_h_d3_a35272f10efe2b96d5d28615342202950}{string {\bfseries path\+String} = \char`\"{}hd4cache\char`\"{}}\label{class_h_d3_1_1_h_d3_a35272f10efe2b96d5d28615342202950}
+
+\item 
+\hypertarget{class_h_d3_1_1_h_d3_aff23c2ce0abc399379593802c96d12da}{bool {\bfseries is\+Downloadable\+Files} = false}\label{class_h_d3_1_1_h_d3_aff23c2ce0abc399379593802c96d12da}
+
+\item 
+\hypertarget{class_h_d3_1_1_h_d3_aa9ebe19e85319c93e770bd9f9071c536}{Dictionary$<$ string, string $>$ {\bfseries m\+\_\+detect\+Request} = new Dictionary$<$string, string$>$()}\label{class_h_d3_1_1_h_d3_aa9ebe19e85319c93e770bd9f9071c536}
+
 \item 
 \hypertarget{class_h_d3_1_1_h_d3_a1f41f1bf9ad3e7f2f1a9ff837b3f1ba9}{string {\bfseries log} = \char`\"{}\char`\"{}}\label{class_h_d3_1_1_h_d3_a1f41f1bf9ad3e7f2f1a9ff837b3f1ba9}
 
@@ -80,7 +93,7 @@ bool \hyperlink{class_h_d3_1_1_h_d3_af615c943aace3228c387e3a0a66bac23}{site\+Fet
 \hypertarget{class_h_d3_1_1_h_d3_a26db2bf3d9c217a68ce46541f6c89f53}{string {\bfseries Proxy\+Server}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}}\label{class_h_d3_1_1_h_d3_a26db2bf3d9c217a68ce46541f6c89f53}
 
 \item 
-\hypertarget{class_h_d3_1_1_h_d3_a946238b564574a5f7b795c96b895845b}{string {\bfseries Proxy\+Port}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}}\label{class_h_d3_1_1_h_d3_a946238b564574a5f7b795c96b895845b}
+\hypertarget{class_h_d3_1_1_h_d3_ac7ab28400c75aa11baa94e39f4be7f96}{int {\bfseries Proxy\+Port}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}}\label{class_h_d3_1_1_h_d3_ac7ab28400c75aa11baa94e39f4be7f96}
 
 \item 
 \hypertarget{class_h_d3_1_1_h_d3_ac70c202b2fdca1821e806b5e66b14d60}{string {\bfseries Proxy\+Pass}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}}\label{class_h_d3_1_1_h_d3_ac70c202b2fdca1821e806b5e66b14d60}
@@ -99,6 +112,9 @@ bool \hyperlink{class_h_d3_1_1_h_d3_af615c943aace3228c387e3a0a66bac23}{site\+Fet
 
 \item 
 \hypertarget{class_h_d3_1_1_h_d3_ad535103d3b2cc1fd924f4d8584ffca86}{string {\bfseries Log\+Server}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}}\label{class_h_d3_1_1_h_d3_ad535103d3b2cc1fd924f4d8584ffca86}
+
+\item 
+\hypertarget{class_h_d3_1_1_h_d3_a3568c37ed6564579b43691ba7f74a3c6}{string {\bfseries File\+Directory}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}}\label{class_h_d3_1_1_h_d3_a3568c37ed6564579b43691ba7f74a3c6}
 
 \end{DoxyCompactItemize}
 
@@ -147,7 +163,7 @@ Constructor arguments assign your credentials.
 \hline
 {\em site\+Id} & Your api site\+Id\\
 \hline
-{\em is\+Local} & true\\
+{\em is\+Local} & false\\
 \hline
 \end{DoxyParams}
 
@@ -332,8 +348,36 @@ return true if site detect specs
 \begin{DoxyReturn}{Returns}
 
 \end{DoxyReturn}
+\hypertarget{class_h_d3_1_1_h_d3_ae8d86be9f088829ebe42214cfb26672e}{\index{H\+D3\+::\+H\+D3@{H\+D3\+::\+H\+D3}!site\+Fetch\+Specs@{site\+Fetch\+Specs}}
+\index{site\+Fetch\+Specs@{site\+Fetch\+Specs}!H\+D3\+::\+H\+D3@{H\+D3\+::\+H\+D3}}
+\subsubsection[{site\+Fetch\+Specs}]{\setlength{\rightskip}{0pt plus 5cm}bool H\+D3.\+H\+D3.\+site\+Fetch\+Specs (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_h_d3_1_1_h_d3_ae8d86be9f088829ebe42214cfb26672e}
+
+
+
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{class_h_d3_1_1_h_d3_ab7987ac1e6295533e55dcd5d300ae9cc}{\index{H\+D3\+::\+H\+D3@{H\+D3\+::\+H\+D3}!site\+Fetch\+Trees@{site\+Fetch\+Trees}}
+\index{site\+Fetch\+Trees@{site\+Fetch\+Trees}!H\+D3\+::\+H\+D3@{H\+D3\+::\+H\+D3}}
+\subsubsection[{site\+Fetch\+Trees}]{\setlength{\rightskip}{0pt plus 5cm}bool H\+D3.\+H\+D3.\+site\+Fetch\+Trees (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_h_d3_1_1_h_d3_ab7987ac1e6295533e55dcd5d300ae9cc}
+
+
+
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Bobcat/\+Desktop/\+Handset\+Detection/dotnet35-\/apikit/\+H\+D3lib/H\+D3.\+cs\end{DoxyCompactItemize}
+H\+D3.\+cs\end{DoxyCompactItemize}
